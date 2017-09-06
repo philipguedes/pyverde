@@ -68,3 +68,9 @@ target/
 
 # virtualenv
 .venv/
+
+# vscode
+.vscode/
+
+# test files/dir
+lixo*

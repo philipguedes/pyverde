@@ -1,0 +1,2486 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "PyVerde",
+        "description": "Riot V3 API Wrapper.",
+        "version": "0.0.1"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "basePath": "/lol",
+    "tags": [
+        {
+            "name": "Champion Maestry",
+            "description": "Endpoint about Champion Maestry"
+        },
+        {
+            "name": "Champion",
+            "description": "Endpoint about Champions"
+        },
+        {
+            "name": "League",
+            "description": "Endpoint about League"
+        },
+        {
+            "name": "Static Data",
+            "description": "Requests to endpoints with this tag are not counted against the application Rate Limits. This should be done in a separated YAML. (TO-DO)"
+        },
+        {
+            "name": "LOL Status",
+            "description": "Requests to endpoints with this tag are not counted against the application Rate Limits. This should be done in a separated YAML. (TO-DO)"
+        },
+        {
+            "name": "Masteries",
+            "description": "Endpoint to get player mastery pages"
+        },
+        {
+            "name": "Match",
+            "description": "Endpoint about Matches"
+        },
+        {
+            "name": "Runes",
+            "description": "Endpoint about summoner rune pages"
+        },
+        {
+            "name": "Spectator",
+            "description": "Endpoint about spectator"
+        },
+        {
+            "name": "Summoner",
+            "description": "Endpoint about summoner general info"
+        },
+        {
+            "name": "Tournament Stub",
+            "description": "TO-DO"
+        },
+        {
+            "name": "Tournament",
+            "description": "TO-DO"
+        }
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/champion-mastery/v3/champion-masteries/by-summoner/{summonerId}": {
+            "get": {
+                "summary": "All Champion Maestry",
+                "description": "Get all champion mastery entries sorted by number of champion points descending\n",
+                "parameters": [
+                    {
+                        "name": "summonerId",
+                        "in": "path",
+                        "description": "The summoner's id.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "tags": [
+                    "Champion Maestry"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of ChampionMasteryDTO",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ChampionMaestryDTO"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/champion-mastery/v3/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}": {
+            "get": {
+                "summary": "Specific Champion Maestry",
+                "description": "Get a champion maestry by player ID and champion ID.\n",
+                "parameters": [
+                    {
+                        "name": "summonerId",
+                        "in": "path",
+                        "description": "The summoner's id.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "championId",
+                        "in": "path",
+                        "description": "The champion's id.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "tags": [
+                    "Champion Maestry"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A ChampionMaestryDTO object",
+                        "schema": {
+                            "$ref": "#/definitions/ChampionMaestryDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/champion-maestry/v3/scores/by-summoner/{summonerId}": {
+            "get": {
+                "description": "Get a player's total champion maestry score, which is the sum of individual champion maestry levels.\n",
+                "parameters": [
+                    {
+                        "name": "summonerId",
+                        "in": "path",
+                        "description": "The summoner's id.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "tags": [
+                    "Champion Maestry"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns an integer that represents the total maestry score",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/platform/v3/champions": {
+            "get": {
+                "summary": "Champion List",
+                "description": "Retrieve all champions.\n",
+                "parameters": [
+                    {
+                        "name": "freeToPlay",
+                        "in": "query",
+                        "description": "If true, returns a list with all champions free to pay (FW). Default is false.",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "tags": [
+                    "Champion"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of ChampionDto object",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ChampionDto"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/platform/v3/champions/{id}": {
+            "get": {
+                "summary": "Champion information",
+                "description": "Retrieve champion by ID champions.\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Champion's id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "tags": [
+                    "Champion"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A ChampionDto object",
+                        "schema": {
+                            "$ref": "#/definitions/ChampionDto"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/league/v3/challengerleagues/by-queue/{queue}": {
+            "get": {
+                "summary": "Challenger league",
+                "description": "Get the challenger league for a given queue.\n",
+                "parameters": [
+                    {
+                        "name": "queue",
+                        "in": "path",
+                        "description": "Choose between RANKED_SOLO_5x5 | RANKED_FLEX_SR | RANKED_FLEX_TT",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "League"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A LeagueListDTO object",
+                        "schema": {
+                            "$ref": "#/definitions/LeagueListDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/league/v3/leagues/by-summoner/{summonerId}": {
+            "get": {
+                "summary": "Leagues by summoner",
+                "description": "Get leagues in all queues for a given summoner ID\n",
+                "parameters": [
+                    {
+                        "name": "summonerId",
+                        "in": "path",
+                        "description": "The summoner's ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "League"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A set of LeagueListDTO object",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/LeagueListDTO"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/league/v3/masterleagues/by-queue/{queue}": {
+            "get": {
+                "summary": "Master league",
+                "description": "Get the master league for a given queue.\n",
+                "parameters": [
+                    {
+                        "name": "queue",
+                        "in": "path",
+                        "description": "Choose between RANKED_SOLO_5x5 | RANKED_FLEX_SR | RANKED_FLEX_TT",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "League"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A LeagueListDTO object",
+                        "schema": {
+                            "$ref": "#/definitions/LeagueListDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/league/v3/positions/by-summoner/{summonerId}": {
+            "get": {
+                "summary": "Position in leagues by summoner",
+                "description": "Get league positions in all queues for a given summoner ID.\n",
+                "parameters": [
+                    {
+                        "name": "summonerId",
+                        "in": "path",
+                        "description": "The summoner's ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "League"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A set of LeaguePositionDTO object",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/LeaguePositionDTO"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/platform/v3/masteries/by-summoner/{summonerId}": {
+            "get": {
+                "summary": "Mastery pages",
+                "description": "Get mastery pages for a given summoner ID.\n",
+                "parameters": [
+                    {
+                        "name": "summonerId",
+                        "in": "path",
+                        "description": "The summoner ID.",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Masteries"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A MasteryPagesDto object",
+                        "schema": {
+                            "$ref": "#/definitions/MasteryPagesDto"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/match/v3/matches/{matchId}": {
+            "get": {
+                "summary": "Match info",
+                "description": "Get a match by match ID\n",
+                "parameters": [
+                    {
+                        "name": "matchId",
+                        "in": "path",
+                        "description": "The match id",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    },
+                    {
+                        "name": "forAccountId",
+                        "in": "query",
+                        "description": "If provided used to identify the participant to be unobfuscated\n",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": false
+                    }
+                ],
+                "tags": [
+                    "Match"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A MatchDto object",
+                        "schema": {
+                            "$ref": "#/definitions/MatchDto"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/match/v3/matchlists/by-account/{accountId}": {
+            "get": {
+                "summary": "Get a matchlist for ranked games on this account",
+                "description": "Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any. A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned.",
+                "parameters": [
+                    {
+                        "name": "accountId",
+                        "in": "path",
+                        "description": "The account ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    },
+                    {
+                        "name": "queue",
+                        "in": "query",
+                        "description": "Set of queue IDs for which to filtering matchlist",
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        },
+                        "uniqueItems": true,
+                        "required": false
+                    },
+                    {
+                        "name": "beginTime",
+                        "in": "query",
+                        "description": "The begin time to use for filtering matchlist specified as epoch milliseconds.",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": false
+                    },
+                    {
+                        "name": "endIndex",
+                        "in": "query",
+                        "description": "The end index to use for filtering matchlist.",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": false
+                    },
+                    {
+                        "name": "season",
+                        "in": "query",
+                        "description": "Set of season IDs for which to filtering matchlist.",
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        },
+                        "uniqueItems": true,
+                        "required": false
+                    },
+                    {
+                        "name": "champion",
+                        "in": "query",
+                        "description": "Set of champion IDs for which to filtering matchlist.",
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        },
+                        "uniqueItems": true,
+                        "required": false
+                    },
+                    {
+                        "name": "beginIndex",
+                        "in": "query",
+                        "description": "The begin index to use for filtering matchlist.",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": false
+                    },
+                    {
+                        "name": "endTime",
+                        "in": "query",
+                        "description": "The end time to use for filtering matchlist specified as epoch milliseconds.",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": false
+                    }
+                ],
+                "tags": [
+                    "Match"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A MatchlistDto object",
+                        "schema": {
+                            "$ref": "#/definitions/MatchlistDto"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/match/v3/matchlists/by-account/{accountId}/recent": {
+            "get": {
+                "summary": "Last 20 matches",
+                "description": "Get matchlist for last 20 matches played on given account ID and platform ID.",
+                "parameters": [
+                    {
+                        "name": "accountId",
+                        "in": "path",
+                        "description": "The account ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Match"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A MatchlistDto object",
+                        "schema": {
+                            "$ref": "#/definitions/MatchlistDto"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/match/v3/timelines/by-match/{matchId}": {
+            "get": {
+                "summary": "Match timeline",
+                "description": "Get match timeline by match ID. Not all matches have timeline data.",
+                "parameters": [
+                    {
+                        "name": "matchId",
+                        "in": "path",
+                        "description": "The match ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Match"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A MatchTimelineDto object",
+                        "schema": {
+                            "$ref": "#/definitions/MatchTimelineDto"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/match/v3/matches/by-tournament-code/{tournamentCode}/ids": {
+            "get": {
+                "summary": "Tournament matches ID",
+                "description": "Get match IDs by tournament code",
+                "parameters": [
+                    {
+                        "name": "tournamentCode",
+                        "in": "path",
+                        "description": "The tournament code",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Match"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of tournament matches ID",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int64"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/match/v3/matches/{matchId}/by-tournament-code/{tournamentCode}": {
+            "get": {
+                "summary": "Tournament matches",
+                "description": "Get match by match ID and tournament code",
+                "parameters": [
+                    {
+                        "name": "matchId",
+                        "in": "path",
+                        "description": "The match ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    },
+                    {
+                        "name": "tournamentCode",
+                        "in": "path",
+                        "description": "The tournament code",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Match"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A MatchDto object",
+                        "schema": {
+                            "$ref": "#/definitions/MatchDto"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/platform/v3/runes/by-summoner/{summonerId}": {
+            "get": {
+                "summary": "Summoner rune pages",
+                "description": "Get rune pages for a given summoner ID",
+                "parameters": [
+                    {
+                        "name": "summonerId",
+                        "in": "path",
+                        "description": "The summoner ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Runes"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A RunePagesDto object",
+                        "schema": {
+                            "$ref": "#/definitions/RunePagesDto"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/spectator/v3/active-games/by-summoner/{summonerId}": {
+            "get": {
+                "summary": "Game information",
+                "description": "Get current game information for the given summoner ID",
+                "parameters": [
+                    {
+                        "name": "summonerId",
+                        "in": "path",
+                        "description": "The summoner ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Spectator"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A CurrentGameInfo object",
+                        "schema": {
+                            "$ref": "#/definitions/CurrentGameInfo"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/spectator/v3/featured-games": {
+            "get": {
+                "summary": "Featured games list",
+                "description": "Get list of featured games",
+                "tags": [
+                    "Spectator"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A FeaturedGames object",
+                        "schema": {
+                            "$ref": "#/definitions/FeaturedGames"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/summoner/v3/summoners/by-account/{accountId}": {
+            "get": {
+                "summary": "Summoner by account ID",
+                "description": "Get the summoner general information for a given accountId",
+                "parameters": [
+                    {
+                        "name": "accountId",
+                        "in": "path",
+                        "description": "The account ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Summoner"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A SummonerDTO object",
+                        "schema": {
+                            "$ref": "#/definitions/SummonerDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/summoner/v3/summoners/by-name/{summonerName}": {
+            "get": {
+                "summary": "Summoner by name",
+                "description": "Get the summoner general information for a given name",
+                "parameters": [
+                    {
+                        "name": "summonerName",
+                        "in": "path",
+                        "description": "The summoner name",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Summoner"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A SummonerDTO object",
+                        "schema": {
+                            "$ref": "#/definitions/SummonerDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/summoner/v3/summoners/{summonerId}": {
+            "get": {
+                "summary": "Summoner by ID",
+                "description": "Get the summoner general information for a given ID",
+                "parameters": [
+                    {
+                        "name": "summonerId",
+                        "in": "path",
+                        "description": "The summoner ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Summoner"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A SummonerDTO object",
+                        "schema": {
+                            "$ref": "#/definitions/SummonerDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "API error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Error": {
+            "type": "object",
+            "description": "General error produced by Riot API",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "HTTP status code returned from Riot API"
+                },
+                "message": {
+                    "type": "string",
+                    "description": "Reason"
+                },
+                "fields": {
+                    "type": "string",
+                    "description": "Additional fields that may have"
+                }
+            }
+        },
+        "ChampionMaestryDTO": {
+            "description": "This object contains a single Champion Maestry information for player and champion combination.",
+            "type": "object",
+            "properties": {
+                "chestGranted": {
+                    "type": "boolean",
+                    "description": "Is chest granted for this champion or not in current season."
+                },
+                "championLevel": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Champion level for specified player and champion combination."
+                },
+                "championPoints": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Total number of champion points for this player and champion combination - they are used to determine championLevel."
+                },
+                "championId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Champion ID for this entry"
+                },
+                "playerId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Player ID for this entry."
+                },
+                "championPointsUntilNextLevel": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Number of points needed to achieve next level. Zero if player reached maximum champion level for this champion."
+                },
+                "championPointsSinceLastLevel": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Number of points earned since current level has been achieved. Zero if player reached maximum champion level for this champion"
+                },
+                "lastPlayTime": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Last time this champion was played by this player - in Unix milliseconds time forat."
+                }
+            }
+        },
+        "ChampionDto": {
+            "description": "This object contains single Champion Maestry information for player and champion combination.",
+            "type": "object",
+            "properties": {
+                "rankedPlayEnabled": {
+                    "type": "boolean",
+                    "description": "Ranked play enabled flag."
+                },
+                "botEnabled": {
+                    "type": "boolean",
+                    "description": "Bot enabled flag (for custom games)."
+                },
+                "botMmEnabled": {
+                    "type": "boolean",
+                    "description": "Bot Match Made enabled flag (for Co-op vs. AI games)."
+                },
+                "active": {
+                    "type": "boolean",
+                    "description": "Indicates if the champion is active"
+                },
+                "freeToPlay": {
+                    "type": "boolean",
+                    "description": "Indicates if the champion is free to play. Free to play champions are rotated periodically."
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Champion ID. For static information correlating to champion IDs, please refer to the LoL Static Data API."
+                }
+            }
+        },
+        "LeagueListDTO": {
+            "type": "object",
+            "properties": {
+                "tier": {
+                    "type": "string",
+                    "description": "League tier"
+                },
+                "queue": {
+                    "type": "string",
+                    "description": "Choose between RANKED_SOLO_5x5 or RANKED_FLEX_SR or RANKED_FLEX_TT",
+                    "enum": [
+                        "RANKED_SOLO_5x5",
+                        "RANKED_FLEX_SR",
+                        "RANKED_FLEX_TT"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Tier and Queue name. (eg. Darius Blackguards)"
+                },
+                "entries": {
+                    "type": "array",
+                    "description": "List of LeagueItemDTO (players)",
+                    "items": {
+                        "$ref": "#/definitions/LeagueItemDTO"
+                    }
+                }
+            }
+        },
+        "LeagueItemDTO": {
+            "type": "object",
+            "description": "A player match's profile",
+            "properties": {
+                "rank": {
+                    "type": "string",
+                    "description": "Rank  TODO"
+                },
+                "hotStreak": {
+                    "type": "string",
+                    "description": "TODO"
+                },
+                "miniSeries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MiniSeriesDTO"
+                    }
+                },
+                "wins": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Total wins"
+                },
+                "veteran": {
+                    "type": "boolean",
+                    "description": "True if player is a veteran in this league"
+                },
+                "losses": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Total losses"
+                },
+                "playerOrTeamId": {
+                    "type": "string",
+                    "description": "Player or team ID"
+                },
+                "playerOrTeamName": {
+                    "type": "string",
+                    "description": "Player or team name"
+                },
+                "inactive": {
+                    "type": "boolean",
+                    "description": "True if player is inactive"
+                },
+                "freshBlood": {
+                    "type": "boolean",
+                    "description": "True if player joined this league recently"
+                },
+                "leaguePoints": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "LP of the current team or player"
+                }
+            }
+        },
+        "MiniSeriesDTO": {
+            "type": "object",
+            "description": "Shows if the player is facing a series",
+            "properties": {
+                "wins": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of wins in the series"
+                },
+                "losses": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of losses in the series"
+                },
+                "target": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of games to finish the series"
+                },
+                "progress": {
+                    "type": "string",
+                    "description": "Progress of the current series"
+                }
+            }
+        },
+        "LeaguePositionDTO": {
+            "type": "object",
+            "description": "Shows the league position for a given queue by summoner.",
+            "properties": {
+                "rank": {
+                    "type": "string",
+                    "description": "Shows the rank in this queue"
+                },
+                "queueType": {
+                    "type": "string",
+                    "description": "Choose between RANKED_SOLO_5x5 | RANKED_FLEX_SR | RANKED_FLEX_TT",
+                    "enum": [
+                        "RANKED_SOLO_5x5",
+                        "RANKED_FLEX_SR",
+                        "RANKED_FLEX_TT"
+                    ]
+                },
+                "hotStreak": {
+                    "type": "boolean",
+                    "description": "True if the player won a certain number of games in a row (same as on fire)."
+                },
+                "miniSeries": {
+                    "$ref": "#/definitions/MiniSeriesDTO"
+                },
+                "wins": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Total wins"
+                },
+                "veteran": {
+                    "type": "boolean",
+                    "description": "Shows if player is a veteran in this league"
+                },
+                "losses": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Total losses"
+                },
+                "playerOrTeamId": {
+                    "type": "string",
+                    "description": "The id of the player or team"
+                },
+                "leagueName": {
+                    "type": "string",
+                    "description": "The name of the league"
+                },
+                "playerOrTeamName": {
+                    "type": "string",
+                    "description": "The name of the player or team"
+                },
+                "inactive": {
+                    "type": "boolean",
+                    "description": "True if the player is inactive"
+                },
+                "freshBlood": {
+                    "type": "boolean",
+                    "description": "True if the player recently joined this league"
+                },
+                "tier": {
+                    "type": "string",
+                    "description": "Tier in this league (eg. \"IV\")"
+                },
+                "leaguePoints": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of league points"
+                }
+            }
+        },
+        "MasteryPagesDto": {
+            "type": "object",
+            "description": "This object contains masteries information.",
+            "properties": {
+                "pages": {
+                    "description": "Collection of mastery pages associated with the summoner.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MasteryPageDto"
+                    }
+                },
+                "summonerId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Summoner ID."
+                }
+            }
+        },
+        "MasteryPageDto": {
+            "type": "object",
+            "description": "This object contains mastery page information.",
+            "properties": {
+                "current": {
+                    "type": "boolean",
+                    "description": "Indicates if the mastery page is the current mastery page."
+                },
+                "masteries": {
+                    "type": "array",
+                    "description": "Collection of masteries associated with the mastery page.",
+                    "items": {
+                        "$ref": "#/definitions/MasteryDto"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Mastery page name."
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Mastery page ID."
+                }
+            }
+        },
+        "MasteryDto": {
+            "type": "object",
+            "description": "This object contains mastery information.",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Mastery ID. For static information correlating to masteries, please refer to LoL Static Data API."
+                },
+                "masteryId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Mastery ID. For static information correlating to masteries, please refer to LoL Static Data API."
+                },
+                "rank": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Mastery rank (i.e., the number of points put into this mastery)."
+                }
+            }
+        },
+        "MatchDto": {
+            "type": "object",
+            "description": "An object that represents a single match",
+            "properties": {
+                "seasonId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "ID of the season"
+                },
+                "queueId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "gameId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "participantIdentities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ParticipantIdentityDto"
+                    },
+                    "description": "Identity of the participants"
+                },
+                "gameVersion": {
+                    "type": "string",
+                    "description": "Version when the match was played"
+                },
+                "platformId": {
+                    "type": "string"
+                },
+                "gameMode": {
+                    "type": "string"
+                },
+                "mapId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "gameType": {
+                    "type": "string"
+                },
+                "teams": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TeamStatsDto"
+                    }
+                },
+                "participants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ParticipantDto"
+                    }
+                },
+                "gameDuration": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "gameCreation": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "ParticipantIdentityDto": {
+            "type": "object",
+            "description": "An object that represents a participant identity",
+            "properties": {
+                "participantId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "player": {
+                    "$ref": "#/definitions/PlayerDto"
+                }
+            }
+        },
+        "PlayerDto": {
+            "type": "object",
+            "description": "An object that represents a player identity",
+            "properties": {
+                "currentPlatformId": {
+                    "type": "string"
+                },
+                "summonerName": {
+                    "type": "string",
+                    "description": "The summoner name"
+                },
+                "matchHistoryUri": {
+                    "type": "string"
+                },
+                "platformId": {
+                    "type": "string"
+                },
+                "currentAccountId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "profileIcon": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "summonerId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "accountId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "TeamStatsDto": {
+            "type": "object",
+            "description": "The stats for this team",
+            "properties": {
+                "firstDragon": {
+                    "type": "boolean",
+                    "description": "True if this team has taken the first dragon"
+                },
+                "firstInhibitor": {
+                    "type": "boolean",
+                    "description": "True if this team has taken the first inhibitor"
+                },
+                "bans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TeamBansDto"
+                    }
+                },
+                "baronKills": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "How many times this team killed Baron"
+                },
+                "firstRiftHerald": {
+                    "type": "boolean",
+                    "description": "True if team has killed Rift Herald"
+                },
+                "firstBaron": {
+                    "type": "boolean",
+                    "description": "True if team has killed the first Baron"
+                },
+                "riftHeraldKills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "firstBlood": {
+                    "type": "boolean",
+                    "description": "True if team has the first kill of the game"
+                },
+                "teamId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "firstTower": {
+                    "type": "boolean",
+                    "description": "True if team has taken the first tower"
+                },
+                "vilemawKills": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Valid only for TT"
+                },
+                "inhibitorKills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "dominionVictoryScore": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "win": {
+                    "type": "string"
+                },
+                "dragonKills": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "TeamBansDto": {
+            "type": "object",
+            "description": "The banned champions",
+            "properties": {
+                "pickTurn": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "championId": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "ParticipantDto": {
+            "type": "object",
+            "description": "Participant object",
+            "properties": {
+                "stats": {
+                    "$ref": "#/definitions/ParticipantStatsDto"
+                },
+                "participantId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "runes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RuneDto"
+                    }
+                },
+                "timeline": {
+                    "$ref": "#/definitions/ParticipantTimelineDto"
+                },
+                "teamId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "spell2Id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "masteries": {
+                    "$ref": "#/definitions/MasteryDto"
+                },
+                "highestAchievedSeasonTier": {
+                    "type": "string"
+                },
+                "spell1Id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "championId": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "ParticipantStatsDto": {
+            "type": "object",
+            "description": "Participant stats for match",
+            "properties": {
+                "physicalDamageDealt": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "neutralMinionsKilledTeamJungle": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "magicDamageDealt": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "totalPlayerScore": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "deaths": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "win": {
+                    "type": "boolean"
+                },
+                "neutralMinionsKilledEnemyJungle": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "altarsCaptured": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "largestCriticalStrike": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "totalDamageDealt": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "magicDamageDealtToChampions": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "visionWardsBoughtInGame": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "damageDealtToObjectives": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "largestKillingSpree": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "item1": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "quadraKills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "teamObjective": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "totalTimeCrowdControlDealt": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "longestTimeSpentLiving": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "wardsKilled": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "firstTowerAssist": {
+                    "type": "boolean"
+                },
+                "firstTowerKill": {
+                    "type": "boolean"
+                },
+                "item2": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "item3": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "item0": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "firstBloodAssist": {
+                    "type": "boolean"
+                },
+                "visionScore": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "wardsPlaced": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "item4": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "item5": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "item6": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "turretKills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "tripleKills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "damageSelfMitigated": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "champLevel": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "nodeNeutralizeAssist": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "firstInhibitorKill": {
+                    "type": "boolean"
+                },
+                "goldEarned": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "magicalDamageTaken": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "kills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "doubleKills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "nodeCaptureAssist": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "trueDamageTaken": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "nodeNeutralize": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "firstInhibitorAssist": {
+                    "type": "boolean"
+                },
+                "assists": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "unrealKills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "neutralMinionsKilled": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "objectivePlayerScore": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "combatPlayerScore": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "damageDealtToTurrets": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "altarsNeutralized": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "physicalDamageDealtToChampions": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "goldSpent": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "trueDamageDealt": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "trueDamageDealtToChampions": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "participantId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pentaKills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "totalHeal": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "totalMinionsKIlled": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "firstBloodKill": {
+                    "type": "boolean"
+                },
+                "nodeCapture": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "largestMultiKill": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "sightWardsBoughtInGame": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "totalDamageDealtToChampions": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "totalUnitsHealed": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "inhibitorKills": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "totalScoreRank": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "totalDamageTaken": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "killingSprees": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "timeCCingOthers": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "physicalDamageTaken": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "RuneDto": {
+            "type": "object",
+            "description": "Rune object",
+            "properties": {
+                "runeId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "rank": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "ParticipantTimelineDto": {
+            "type": "object",
+            "description": "Participant timeline of the match",
+            "properties": {
+                "participantId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "csDiffPerMinDeltas": {
+                    "description": "Map (string, double) containing cs information",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "goldPerMinDeltas": {
+                    "description": "Map (string, double) containing gold information",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "xpDiffPerMinDeltas": {
+                    "description": "Map (string, double) containing xp information",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "creepsPerMinDeltas": {
+                    "description": "Map (string, double) containing cs information",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "xpPerMinDeltas": {
+                    "description": "Map (string, double) containing xp information",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "role": {
+                    "description": "Role of participant",
+                    "type": "string"
+                },
+                "damageTakenDiffPerMinDeltas": {
+                    "description": "Map (string, double) containing damage taken information",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "damageTakenPerMinDeltas": {
+                    "description": "Map (string, double) containing damage taken information",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            }
+        },
+        "MatchlistDto": {
+            "type": "object",
+            "description": "A matchlist object",
+            "properties": {
+                "matches": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MatchReferenceDto"
+                    }
+                },
+                "totalGames": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "startIndex": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "endIndex": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "MatchReferenceDto": {
+            "type": "object",
+            "description": "A match reference object",
+            "properties": {
+                "lane": {
+                    "type": "string"
+                },
+                "gameId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "champion": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "platformId": {
+                    "type": "string"
+                },
+                "season": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "queue": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "MatchTimelineDto": {
+            "type": "object",
+            "description": "Represents the match timeline. Not all matches have this timeline data.",
+            "properties": {
+                "frames": {
+                    "description": "An array of frames representing the match",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MatchFrameDto"
+                    }
+                },
+                "frameInterval": {
+                    "description": "Interval of each frame",
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "MatchFrameDto": {
+            "type": "object",
+            "description": "k",
+            "properties": {
+                "timestamp": {
+                    "description": "Timestamp of a match frame",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "participantFrames": {
+                    "description": "Map(int, MatchParticipantFrameDto) containing participant frames",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/MatchParticipantFrameDto"
+                    }
+                },
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MatchEventDto"
+                    }
+                }
+            }
+        },
+        "MatchParticipantFrameDto": {
+            "type": "object",
+            "description": "k",
+            "properties": {
+                "totalGold": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "teamScore": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "participantId": {
+                    "description": "The participant ID",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "level": {
+                    "description": "The level of the participant in this frame",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "currentGold": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "minionsKilled": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "dominionScore": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "position": {
+                    "$ref": "#/definitions/MatchPositionDto"
+                },
+                "xp": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "jungleMinionsKilled": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "MatchPositionDto": {
+            "type": "object",
+            "description": "Describes a position in a match",
+            "properties": {
+                "x": {
+                    "description": "X axis value",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "y": {
+                    "description": "Y axis value",
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "MatchEventDto": {
+            "type": "object",
+            "description": "Describes an event occurred in match",
+            "properties": {
+                "eventType": {
+                    "description": "Type of the event",
+                    "type": "string"
+                },
+                "towerType": {
+                    "type": "string"
+                },
+                "teamId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "ascendedType": {
+                    "type": "string"
+                },
+                "killerId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "levelUpType": {
+                    "type": "string"
+                },
+                "pointCaptured": {
+                    "type": "string"
+                },
+                "assistingParticipantIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "wardType": {
+                    "type": "string"
+                },
+                "monsterType": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The possible values available for these properties",
+                    "type": "string",
+                    "enum": [
+                        "CHAMPION_KILL",
+                        "WARD_PLACED",
+                        "WARD_KILL",
+                        "BUILDING_KILL",
+                        "ELITE_MONSTER_KILL",
+                        "ITEM_PURCHASED",
+                        "ITEM_SOLD",
+                        "ITEM_DESTROYED",
+                        "ITEM_UNDO",
+                        "SKILL_LEVEL_UP",
+                        "ASCENDED_EVENT",
+                        "CAPTURE_POINT",
+                        "PORO_KING_SUMMON"
+                    ]
+                },
+                "skillShot": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "victimId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "monsterSubType": {
+                    "type": "string"
+                },
+                "laneType": {
+                    "type": "string"
+                },
+                "itemId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "participantId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "buildingType": {
+                    "type": "string"
+                },
+                "creatorId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "position": {
+                    "$ref": "#/definitions/MatchPositionDto"
+                },
+                "beforeId": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "RunePagesDto": {
+            "type": "object",
+            "description": "This object contains rune pages information",
+            "properties": {
+                "pages": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "description": "Collection of rune pages associated with the summoner",
+                    "items": {
+                        "$ref": "#/definitions/RunePageDto"
+                    }
+                },
+                "summonerId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "RunePageDto": {
+            "type": "object",
+            "description": "This object contains rune page information",
+            "properties": {
+                "current": {
+                    "type": "boolean",
+                    "description": "Indicates if the page is the current page"
+                },
+                "slots": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "description": "Collection of rune slots associated with the rune page",
+                    "items": {
+                        "$ref": "#/definitions/RuneSlotDto"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Rune page name"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Rune page ID"
+                }
+            }
+        },
+        "RuneSlotDto": {
+            "type": "object",
+            "description": "This object contains rune slot information",
+            "properties": {
+                "runeSlotId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Rune slot ID"
+                },
+                "runeId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Rune ID associated with the rune slot. For static information correlating to rune IDs, please refer to the LoL Static Data API"
+                }
+            }
+        },
+        "CurrentGameInfo": {
+            "type": "object",
+            "description": "The current game information",
+            "properties": {
+                "gameId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The id of the game"
+                },
+                "gameStartTime": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The game start time represented in epoch milliseconds"
+                },
+                "platformId": {
+                    "type": "string",
+                    "description": "The ID of the platform on which the game is being played"
+                },
+                "gameMode": {
+                    "type": "string",
+                    "description": "The game mode"
+                },
+                "mapId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the map"
+                },
+                "gameType": {
+                    "type": "string",
+                    "description": "The game type"
+                },
+                "bannedChampions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BannedChampion"
+                    },
+                    "description": "Banned champion information"
+                },
+                "observers": {
+                    "$ref": "#/definitions/Observer"
+                },
+                "participants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CurrentGameParticipant"
+                    }
+                },
+                "gameLength": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The amount of time in seconds that has passed since the game started"
+                },
+                "gameQueueConfigId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The queue type (queue types are documented on the Game Constants page)"
+                }
+            }
+        },
+        "Observer": {
+            "type": "object",
+            "description": "The observer information",
+            "properties": {
+                "encryptionKey": {
+                    "type": "string",
+                    "description": "Key used to decrypt the spectator grid game data for playback"
+                }
+            }
+        },
+        "CurrentGameParticipant": {
+            "type": "object",
+            "description": "The participant information",
+            "properties": {
+                "profileIconId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the profile icon used by this participant"
+                },
+                "championId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the champion played by this participant"
+                },
+                "summonerName": {
+                    "type": "string",
+                    "description": "The summoner name of this participant"
+                },
+                "runes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Rune"
+                    },
+                    "description": "The runes used by this participant"
+                },
+                "bot": {
+                    "type": "boolean",
+                    "description": "Flag indicating whether or not this participant is a bot"
+                },
+                "teamId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The team ID of this participant, indicating the participant's team"
+                },
+                "spell2Id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the second summoner spell used by this participant"
+                },
+                "masteries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Mastery"
+                    },
+                    "description": "The masteries used by this participant"
+                },
+                "spell1Id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the first summoner spell used by this participant"
+                },
+                "summonerId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The summoner ID of this participant"
+                }
+            }
+        },
+        "Mastery": {
+            "type": "object",
+            "description": "A Mastery",
+            "properties": {
+                "masteryId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the mastery"
+                },
+                "rank": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The number of points put into this mastery by user"
+                }
+            }
+        },
+        "Rune": {
+            "type": "object",
+            "description": "A Rune",
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The count of this rune used by participant"
+                },
+                "runeId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the rune"
+                }
+            }
+        },
+        "BannedChampion": {
+            "type": "object",
+            "description": "Banned champion information",
+            "properties": {
+                "pickTurn": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The turn during which the champion was banned"
+                },
+                "championId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the banned champion"
+                },
+                "teamId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the team that bannned the champion"
+                }
+            }
+        },
+        "FeaturedGames": {
+            "type": "object",
+            "description": "Featured games object",
+            "properties": {
+                "clientRefreshInterval": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The suggested interval to wait before requesting FeaturedGames again"
+                },
+                "gameList": {
+                    "type": "array",
+                    "description": "The list of featured games",
+                    "items": {
+                        "$ref": "#/definitions/FeaturedGameInfo"
+                    }
+                }
+            }
+        },
+        "FeaturedGameInfo": {
+            "type": "object",
+            "description": "Featured games info object",
+            "properties": {
+                "gameId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the game"
+                },
+                "gameStartTime": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The game start time represented in epoch milliseconds"
+                },
+                "platformId": {
+                    "type": "string",
+                    "description": "The ID of the platform on which the game is being played"
+                },
+                "gameMode": {
+                    "type": "string",
+                    "description": "The game mode"
+                },
+                "mapId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the map"
+                },
+                "gameType": {
+                    "type": "string",
+                    "description": "The game type"
+                },
+                "bannedChampions": {
+                    "type": "array",
+                    "description": "Banned champion information",
+                    "items": {
+                        "$ref": "#/definitions/BannedChampion"
+                    }
+                },
+                "observers": {
+                    "$ref": "#/definitions/Observer"
+                },
+                "participants": {
+                    "type": "array",
+                    "description": "The participant information",
+                    "items": {
+                        "$ref": "#/definitions/Participant"
+                    }
+                },
+                "gameLength": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The amount of time in seconds that has passed since the game started"
+                },
+                "gameQueueConfigId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "THe queue type (queue types are documented on the Game Constants page)"
+                }
+            }
+        },
+        "Participant": {
+            "type": "object",
+            "description": "The participant information",
+            "properties": {
+                "profileIconId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the profile icon used by this participant"
+                },
+                "championId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the champion played by this participant"
+                },
+                "summonerName": {
+                    "type": "string",
+                    "description": "The summoner name of this participant"
+                },
+                "bot": {
+                    "type": "boolean",
+                    "description": "Flag indicating whether or not this participant is a bot"
+                },
+                "spell2Id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the second summoner spell used by this participant"
+                },
+                "teamId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The team ID of this participant, indicating the participant's team"
+                },
+                "spell1Id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "The ID of the first summoner spell used by this participant"
+                }
+            }
+        },
+        "SummonerDTO": {
+            "type": "object",
+            "description": "An object that represents a summoner",
+            "properties": {
+                "profileIconId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "ID of the summoner icon associated with the summoner."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Summoner name"
+                },
+                "summonerLevel": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Summoner level associated with the summoner."
+                },
+                "revisionDate": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change\n"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Summoner ID"
+                },
+                "accountId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "Account ID"
+                }
+            }
+        }
+    }
+}
