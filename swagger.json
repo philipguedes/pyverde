@@ -12,8 +12,8 @@
     "basePath": "/lol",
     "tags": [
         {
-            "name": "Champion Maestry",
-            "description": "Endpoint about Champion Maestry"
+            "name": "Champion Mastery",
+            "description": "Endpoint about Champion Mastery"
         },
         {
             "name": "Champion",
@@ -79,7 +79,7 @@
                     }
                 ],
                 "tags": [
-                    "Champion Maestry"
+                    "Champion Mastery"
                 ],
                 "responses": {
                     "200": {
@@ -123,7 +123,7 @@
                     }
                 ],
                 "tags": [
-                    "Champion Maestry"
+                    "Champion Mastery"
                 ],
                 "responses": {
                     "200": {
@@ -141,8 +141,9 @@
                 }
             }
         },
-        "/champion-maestry/v3/scores/by-summoner/{summonerId}": {
+        "/champion-mastery/v3/scores/by-summoner/{summonerId}": {
             "get": {
+                "summary": "Player's total mastery score",
                 "description": "Get a player's total champion maestry score, which is the sum of individual champion maestry levels.\n",
                 "parameters": [
                     {
@@ -155,7 +156,7 @@
                     }
                 ],
                 "tags": [
-                    "Champion Maestry"
+                    "Champion Mastery"
                 ],
                 "responses": {
                     "200": {
