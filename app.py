@@ -6,6 +6,8 @@ from pyverde.endpoints.league import league
 from pyverde.endpoints.masteries import masteries
 from pyverde.endpoints.match import match
 from pyverde.endpoints.runes import runes
+from pyverde.endpoints.spectator import spectator
+from pyverde.endpoints.summoner import summoner
 
 
 app = Flask(__name__)
@@ -21,6 +23,7 @@ app.register_blueprint(league)
 app.register_blueprint(masteries)
 app.register_blueprint(match)
 app.register_blueprint(runes)
-
+app.register_blueprint(spectator)
+app.register_blueprint(summoner)
 
 Swagger(app, template_file='swagger.json')
