@@ -881,18 +881,19 @@
             "type": "object",
             "description": "General error produced by Riot API",
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP status code returned from Riot API"
-                },
-                "message": {
-                    "type": "string",
-                    "description": "Reason"
-                },
-                "fields": {
-                    "type": "string",
-                    "description": "Additional fields that may have"
+                "status": {
+                    "type": "object",
+                    "description": "HTTP status returned from Riot API",
+                    "properties": {
+                        "message": {
+                            "type": "string",
+                            "description": "Reason"
+                        },
+                        "status_code": {
+                            "type": "string",
+                            "description": "Additional fields that may have"
+                        }
+                    }
                 }
             }
         },
