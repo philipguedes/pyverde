@@ -245,7 +245,8 @@
                         "in": "path",
                         "description": "Choose between RANKED_SOLO_5x5 | RANKED_FLEX_SR | RANKED_FLEX_TT",
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "enum": ["RANKED_SOLO_5x5", "RANKED_FLEX_SR", "RANKED_FLEX_TT"]
                     }
                 ],
                 "tags": [
@@ -313,7 +314,8 @@
                         "in": "path",
                         "description": "Choose between RANKED_SOLO_5x5 | RANKED_FLEX_SR | RANKED_FLEX_TT",
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "enum": ["RANKED_SOLO_5x5", "RANKED_FLEX_SR", "RANKED_FLEX_TT"]
                     }
                 ],
                 "tags": [
