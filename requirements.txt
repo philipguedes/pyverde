@@ -1,3 +1,4 @@
 uWSGI
 Flask
 flasgger
+requests
