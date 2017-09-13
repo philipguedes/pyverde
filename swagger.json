@@ -245,7 +245,8 @@
                         "in": "path",
                         "description": "Choose between RANKED_SOLO_5x5 | RANKED_FLEX_SR | RANKED_FLEX_TT",
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "enum": ["RANKED_SOLO_5x5", "RANKED_FLEX_SR", "RANKED_FLEX_TT"]
                     }
                 ],
                 "tags": [
@@ -313,7 +314,8 @@
                         "in": "path",
                         "description": "Choose between RANKED_SOLO_5x5 | RANKED_FLEX_SR | RANKED_FLEX_TT",
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "enum": ["RANKED_SOLO_5x5", "RANKED_FLEX_SR", "RANKED_FLEX_TT"]
                     }
                 ],
                 "tags": [
@@ -881,18 +883,19 @@
             "type": "object",
             "description": "General error produced by Riot API",
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "HTTP status code returned from Riot API"
-                },
-                "message": {
-                    "type": "string",
-                    "description": "Reason"
-                },
-                "fields": {
-                    "type": "string",
-                    "description": "Additional fields that may have"
+                "status": {
+                    "type": "object",
+                    "description": "HTTP status returned from Riot API",
+                    "properties": {
+                        "message": {
+                            "type": "string",
+                            "description": "Reason"
+                        },
+                        "status_code": {
+                            "type": "string",
+                            "description": "Additional fields that may have"
+                        }
+                    }
                 }
             }
         },
